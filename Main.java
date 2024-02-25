@@ -74,7 +74,7 @@ public class Main {
         System.out.println("Введите номер атакующей команды: ");
         int num = scanner.nextInt();
         Scanner scanner1 = new Scanner(System.in);
-        System.out.println("Введите атакующего персонажа: ");
+        System.out.println("Введите класс атакующего персонажа: ");
         String voin = scanner1.nextLine();
         Charaсter vrag = null;
         if (num == 1) {
