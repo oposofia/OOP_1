@@ -1,5 +1,7 @@
 package OOP;
 
+import java.util.ArrayList;
+
 abstract class Charaсter {
     String name;
     int health;
@@ -9,9 +11,13 @@ abstract class Charaсter {
     int armor;
     int damage;
     String weapon;
+    int x, y;
 
-    public Charaсter(String name, int health, String gender,
+    Place position;
+
+    public Charaсter(int x, int y, String name, int health, String gender,
                      int speed, int armor, int damage, String weapon){
+        position = new Place(x,y);
         maxHealth = health;
         this.name = name;
         this.health = health;
@@ -20,6 +26,9 @@ abstract class Charaсter {
         this.armor = armor;
         this.damage = damage;
         this.weapon = weapon;
+        this.x = x;
+        this.y = y;
+
     }
     protected int go(int place){
         return place-speed;
@@ -38,17 +47,32 @@ abstract class Charaсter {
     }
 
     public void print(){
-        System.out.println("Name: " + name + "   Health: " + health + "   Gender: " + gender +
+        System.out.println("x = " + x + " y = " + y + " Class: " +
+                getClass().getSimpleName() + " Name: " + name + "   Health: " + health + "   Gender: " + gender +
                 "   Speed: " + speed + "   Armor: " + armor + "   Damage: " + damage +
                 "   Weapon: " + weapon);
     }
 
-    /*
-    protected void getInfo(){
-        System.out.println(String.format("Name: %s Health: %d Gender: %s Speed: %d Armor: %d Damage: %d Weapon: %s",
-                this.name, this.health, this.gender, this.speed, this.armor, this.damage, this.weapon));
+    public void printName(){
+        System.out.println("x = " + x + " y = " + y + " Class: " +
+                getClass().getSimpleName() + " Name: " + name);
     }
 
-     */
+    public ArrayList<Object> minDistance(Charaсter charaсter, ArrayList<Charaсter> team){
+        double minDist = 999999999;
+        ArrayList<Object> list = new ArrayList<>();
+        Charaсter minChar = null;
+        for (int i = 0; i < team.size(); i++) {
+           if (position.distance(charaсter.x, charaсter.y, team.get(i).x, team.get(i).y) < minDist){
+               minDist = position.distance(charaсter.x, charaсter.y, team.get(i).x, team.get(i).y);
+               minChar = team.get(i);
+           }
+        }
+        list.add(minDist);
+        list.add(minChar);
+        return list;
+    }
+
+
 }
 
